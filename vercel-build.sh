@@ -1,11 +1,15 @@
 #!/bin/bash
 
-# Garantir que as variáveis de ambiente são copiadas para o .env
-echo "NODE_ENV=production" > .env
-echo "MONGODB_URI=$MONGO_URI" >> .env
-echo "JWT_SECRET=$JWT_SECRET" >> .env
-echo "JWT_EXPIRES_IN=7d" >> .env
-echo "PORT=3000" >> .env
+# Este script é executado durante o build na Vercel
 
-# Executar o build normal
-npm run build 
+# Compilar TypeScript
+echo "Compilando TypeScript..."
+npm run build
+
+# Verificar se a compilação foi bem-sucedida
+if [ $? -ne 0 ]; then
+  echo "Erro na compilação TypeScript"
+  exit 1
+fi
+
+echo "Build concluído com sucesso!" 
