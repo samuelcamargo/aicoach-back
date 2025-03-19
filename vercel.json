@@ -9,13 +9,18 @@
   ],
   "routes": [
     {
-      "src": "/api-docs/(.*)",
+      "src": "/api-docs/swagger.json",
       "dest": "dist/index.js",
       "headers": {
-        "Access-Control-Allow-Origin": "*",
-        "Access-Control-Allow-Methods": "GET, POST, PUT, DELETE, OPTIONS",
-        "Access-Control-Allow-Headers": "X-Requested-With, Content-Type, Accept",
-        "Content-Security-Policy": "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline' https://aicoach-back.vercel.app; img-src 'self' data: https:; connect-src 'self' https://aicoach-back.vercel.app"
+        "Content-Type": "application/json",
+        "Access-Control-Allow-Origin": "*"
+      }
+    },
+    {
+      "src": "/api-docs",
+      "dest": "dist/index.js",
+      "headers": {
+        "Access-Control-Allow-Origin": "*"
       }
     },
     {
