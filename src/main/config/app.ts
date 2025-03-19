@@ -14,14 +14,7 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-
-// Configuração do Helmet para permitir o Swagger UI
-app.use(
-  helmet({
-    contentSecurityPolicy: false,
-    crossOriginEmbedderPolicy: false
-  })
-);
+app.use(helmet());
 
 // Documentação Swagger
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
