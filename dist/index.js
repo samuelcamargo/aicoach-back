@@ -8,18 +8,13 @@ const app_1 = __importDefault(require("./main/config/app"));
 const connection_1 = require("./infra/database/mongodb/connection");
 (0, dotenv_1.config)();
 const PORT = process.env.PORT || 3000;
-// Para compatibilidade com a Vercel
-exports.default = app_1.default;
-// Inicia o servidor apenas se não estiver rodando na Vercel
-if (process.env.NODE_ENV !== 'production') {
-    (0, connection_1.connectDB)()
-        .then(() => {
-        app_1.default.listen(PORT, () => {
-            console.log(`Server running on port ${PORT}`);
-            console.log(`Swagger docs available at http://localhost:${PORT}/api-docs`);
-        });
-    })
-        .catch((error) => {
-        console.error('Database connection error:', error);
+(0, connection_1.connectDB)()
+    .then(() => {
+    app_1.default.listen(PORT, () => {
+        console.log(`Server running on port ${PORT}`);
+        console.log(`Swagger docs available at http://localhost:${PORT}/api-docs`);
     });
-}
+})
+    .catch((error) => {
+    console.error('Database connection error:', error);
+});
