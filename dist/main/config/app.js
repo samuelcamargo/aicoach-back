@@ -16,9 +16,26 @@ const app = (0, express_1.default)();
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use((0, cors_1.default)());
-app.use((0, helmet_1.default)());
+// Configuração do Helmet para permitir o Swagger UI
+app.use((0, helmet_1.default)({
+    contentSecurityPolicy: {
+        directives: {
+            defaultSrc: ['\'self\''],
+            scriptSrc: ['\'self\'', '\'unsafe-inline\'', '\'unsafe-eval\''],
+            styleSrc: ['\'self\'', '\'unsafe-inline\'', 'https://aicoach-back.vercel.app'],
+            imgSrc: ['\'self\'', 'data:', 'https:'],
+            connectSrc: ['\'self\'', 'https://aicoach-back.vercel.app']
+        }
+    },
+    crossOriginEmbedderPolicy: false,
+    crossOriginResourcePolicy: { policy: 'cross-origin' }
+}));
 // Documentação Swagger
-app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_1.swaggerSpec));
+app.use('/api-docs', swagger_ui_express_1.default.serve, swagger_ui_express_1.default.setup(swagger_1.swaggerSpec, {
+    swaggerOptions: {
+        persistAuthorization: true
+    }
+}));
 // Setup de rotas
 (0, routes_1.setupRoutes)(app);
 exports.default = app;
