@@ -1,13 +1,10 @@
-README.md
 .git
 node_modules
-npm-debug.log
 .env
 .env.*
-!.env.production
-.gitignore
-coverage
+!.env.example
 .vscode
+coverage
 __tests__
 *.test.ts
-jest.config.ts 
+README.md 

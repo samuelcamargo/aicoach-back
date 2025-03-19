@@ -2,22 +2,27 @@
   "name": "aicoach-back",
   "version": "1.0.0",
   "description": "Backend API for aiCoach application",
-  "main": "index.js",
+  "main": "dist/index.js",
   "engines": {
     "node": ">=18.x"
   },
   "scripts": {
     "dev": "ts-node-dev --respawn --transpile-only src/index.ts",
-    "build": "node prepare.js && tsc",
-    "start": "node index.js",
+    "build": "tsc",
+    "start": "node dist/index.js",
     "test": "jest",
     "test:watch": "jest --watch",
     "lint": "eslint . --ext .ts",
     "lint:fix": "eslint . --ext .ts --fix",
     "seed:admin": "ts-node src/infra/database/mongodb/seeds/admin-user.seed.ts",
-    "vercel-build": "node prepare.js && tsc",
-    "vercel-dev": "vercel dev"
+    "ts.check": "tsc --project tsconfig.json",
+    "add-build": "git add dist"
   },
+  "pre-commit": [
+    "ts.check",
+    "build",
+    "add-build"
+  ],
   "dependencies": {
     "bcrypt": "^5.1.1",
     "cors": "^2.8.5",
