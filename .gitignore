@@ -134,3 +134,18 @@ dist
 .yarn/build-state.yml
 .yarn/install-state.gz
 .pnp.*
+
+# IDE specific files
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+
+# Arquivos de configuração TypeScript compilados para JS
+*.js.map
+tsconfig.tsbuildinfo
+
+# Arquivos específicos do projeto
+!jest.config.ts
+!.eslintrc.ts
+!.eslintrc.js
