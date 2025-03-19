@@ -1,0 +1,23 @@
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.makeUserController = void 0;
+const user_controller_1 = require("../../presentation/controllers/user.controller");
+const create_user_usecase_1 = require("../../domain/usecases/user/create-user.usecase");
+const get_user_usecase_1 = require("../../domain/usecases/user/get-user.usecase");
+const get_all_users_usecase_1 = require("../../domain/usecases/user/get-all-users.usecase");
+const update_user_usecase_1 = require("../../domain/usecases/user/update-user.usecase");
+const delete_user_usecase_1 = require("../../domain/usecases/user/delete-user.usecase");
+const user_repository_1 = require("../../infra/database/mongodb/repositories/user.repository");
+const bcrypt_adapter_1 = require("../../infra/cryptography/bcrypt-adapter");
+const makeUserController = () => {
+    const salt = 12;
+    const bcryptAdapter = new bcrypt_adapter_1.BcryptAdapter(salt);
+    const userRepository = new user_repository_1.MongoUserRepository();
+    const createUserUseCase = new create_user_usecase_1.CreateUser(userRepository, bcryptAdapter.hash.bind(bcryptAdapter));
+    const getUserUseCase = new get_user_usecase_1.GetUser(userRepository);
+    const getAllUsersUseCase = new get_all_users_usecase_1.GetAllUsers(userRepository);
+    const updateUserUseCase = new update_user_usecase_1.UpdateUser(userRepository, bcryptAdapter.hash.bind(bcryptAdapter));
+    const deleteUserUseCase = new delete_user_usecase_1.DeleteUser(userRepository);
+    return new user_controller_1.UserController(createUserUseCase, getUserUseCase, getAllUsersUseCase, updateUserUseCase, deleteUserUseCase);
+};
+exports.makeUserController = makeUserController;
