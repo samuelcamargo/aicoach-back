@@ -2,7 +2,8 @@ import express from 'express';
 import cors from 'cors';
 import helmet from 'helmet';
 import { config } from 'dotenv';
-import { setupSwagger } from '../swagger/serve-swagger';
+import swaggerUi from 'swagger-ui-express';
+import { swaggerSpec } from '../swagger/swagger';
 import { setupRoutes } from './routes';
 
 config();
@@ -13,12 +14,10 @@ const app = express();
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 app.use(cors());
-
-// Aplicar Helmet para todas as rotas exceto o Swagger
 app.use(helmet());
 
-// Configuração do Swagger personalizada
-setupSwagger(app);
+// Documentação Swagger
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerSpec));
 
 // Setup de rotas
 setupRoutes(app);
