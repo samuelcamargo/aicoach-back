@@ -3,27 +3,25 @@
   "name": "aicoach-backend",
   "builds": [
     {
-      "src": "server.js",
-      "use": "@vercel/node"
+      "src": "dist/index.js",
+      "use": "@now/node"
     }
   ],
   "routes": [
     {
       "src": "/api-docs(.*)",
-      "dest": "server.js"
+      "dest": "/dist/index.js"
     },
     {
       "src": "/api/(.*)",
-      "dest": "server.js"
+      "dest": "/dist/index.js"
     },
     {
       "src": "/(.*)",
-      "dest": "server.js"
+      "dest": "/dist/index.js"
     }
   ],
   "env": {
     "NODE_ENV": "production"
-  },
-  "buildCommand": "chmod +x vercel-build.sh && ./vercel-build.sh",
-  "outputDirectory": "dist"
+  }
 } 
