@@ -1,0 +1,14 @@
+{
+  "app_id": "aicoach-api",
+  "config_version": 20210101,
+  "name": "aicoach-api",
+  "location": "GCP/us-east-1",
+  "deployment_model": "GLOBAL",
+  "security": {},
+  "custom_user_data_config": {
+    "enabled": false
+  },
+  "sync": {
+    "development_mode_enabled": false
+  }
+} 
